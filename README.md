@@ -1,23 +1,26 @@
-# AWS S3 Static Portfolio Website
+# AWS S3 & CloudFront Static Portfolio Website
 
-Welcome to my portfolio repository! This project showcases a modern, high-contrast black-and-white personal portfolio website natively hosted in the Amazon Web Services (AWS) cloud ecosystem.
+Welcome to my portfolio repository! This project showcases a modern, high-contrast personal portfolio website hosted natively in the Amazon Web Services (AWS) cloud ecosystem.
+
+## 🌐 Live Demo
+
+* **Live Site:** [https://dihygzx3tp3j0.cloudfront.net](https://dihygzx3tp3j0.cloudfront.net)
+
+---
 
 ## 🚀 Overview
 
-The portfolio features a sleek, minimalist UI/UX design with smooth GSAP animations, interactive cursor micro-interactions, and a seamless B&W profile image mask. It serves as both a personal tech showcase and a hands-on cloud architecture implementation.
+The portfolio features a sleek, minimalist UI/UX design with smooth GSAP animations, interactive cursor micro-interactions, and a seamless B&W profile image mask. It serves as both a personal tech showcase and a production-grade cloud architecture implementation.
 
 ### Key Technologies:
 * **Frontend:** HTML5, CSS3, JavaScript (ES6+), GSAP (GreenSock Animation Platform)
-* **Cloud Infrastructure:** Amazon Web Services (AWS)
-  * **Amazon S3:** Static Website Hosting & Bucket Policies
-  * **AWS CLI:** Automated local-to-cloud file synchronization
+* **Cloud Infrastructure & Security:** Amazon Web Services (AWS)
+  * **Amazon CloudFront:** Content Delivery Network (CDN) providing global edge caching, SSL/TLS termination (`HTTPS`), and cost optimization (AWS Free Tier: 1 TB transfer & 10M requests).
+  * **Amazon S3:** Secure, private object storage acting as the CloudFront origin.
+  * **Origin Access Control (OAC):** Restricts direct S3 bucket access, ensuring traffic is only routed securely through CloudFront.
+  * **AWS CLI:** Automated local-to-cloud file deployment.
 * **Version Control:** Git & GitHub
 
 ---
 
-## 🛠️ AWS Cloud Architecture & Deployment
-
-1. **Amazon S3 Bucket:** Configured for public static website hosting with custom JSON bucket policies for secure `GetObject` read operations.
-2. **AWS CLI Sync:** Synchronized directly from the local development environment (`/portfolio`) to S3 using optimized deployment commands:
-   ```bash
-   aws s3 sync . s3://aws-portfolio-patryk/ --delete
+## 🛠️ AWS Cloud Architecture & Security
