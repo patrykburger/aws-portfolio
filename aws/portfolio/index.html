@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patryk Burger | Cloud & Automation</title>
+<meta name="description" content="Patryk Burger: AWS, Python and automation. Portfolio and contact.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Patryk Burger | Cloud & Automation">
+<meta property="og:description" content="AWS, Python and automation. Portfolio and contact.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;
+  --panel:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.14);
+  --text:#fff;
+  --muted:#a1a1a1;
+  --font:'Geist',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:4px}
+
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-2}
+.veil{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 30% 40%,rgba(0,0,0,.72),rgba(0,0,0,.15) 100%)}
+
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.5rem}
+
+nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(0,0,0,.55);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.brand{font-weight:600;text-decoration:none;letter-spacing:-.2px}
+nav ul{display:flex;gap:1.75rem;list-style:none}
+nav ul a{text-decoration:none;color:var(--muted);font-size:.92rem;transition:color .2s}
+nav ul a:hover{color:#fff}
+
+/* Hero */
+.hero{min-height:calc(100vh - 64px);display:flex;align-items:center;gap:3rem;padding:4rem 0}
+.hero-text{flex:1}
+.status{display:inline-flex;align-items:center;gap:.6rem;font-size:.9rem;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;margin-bottom:1.75rem;background:var(--panel)}
+.status i{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800;line-height:1.02;letter-spacing:-.045em;margin-bottom:1.5rem}
+.lead{font-size:1.15rem;font-weight:300;color:var(--muted);max-width:34rem;margin-bottom:2.25rem}
+.cta{display:flex;flex-wrap:wrap;gap:1rem}
+.btn{display:inline-block;padding:.9rem 1.75rem;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;
+  border:1px solid var(--line);transition:transform .25s,background .25s,border-color .25s,color .25s}
+.btn:hover{transform:translateY(-2px);border-color:#fff}
+.btn.primary{background:#fff;color:#000;border-color:#fff}
+.btn.primary:hover{background:#e6e6e6}
+
+.portrait{flex:0 0 auto;width:300px;height:300px;border-radius:50%;position:relative;overflow:hidden;
+  border:1px solid var(--line);background:#0b0b0b;display:grid;place-items:center}
+.portrait span{font-size:4rem;font-weight:800;letter-spacing:-.05em;color:#333}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* Hero load sequence (the only automatic motion besides the background) */
+.hero-text>*,.portrait{opacity:0;transform:translateY(16px);animation:in .8s cubic-bezier(.16,1,.3,1) forwards}
+.hero-text>:nth-child(2){animation-delay:.1s}
+.hero-text>:nth-child(3){animation-delay:.2s}
+.hero-text>:nth-child(4){animation-delay:.3s}
+.portrait{animation-delay:.25s}
+@keyframes in{to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:6rem 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.7rem,3.5vw,2.3rem);font-weight:800;letter-spacing:-.03em;margin-bottom:.75rem}
+.sub{color:var(--muted);max-width:36rem;margin-bottom:3rem;font-weight:300}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.75rem;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .25s}
+.card:hover{border-color:rgba(255,255,255,.4)}
+.card h3{font-size:1.1rem;margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
+.tags li{list-style:none;font-size:.8rem;color:#d4d4d4;border:1px solid var(--line);border-radius:999px;padding:.15rem .7rem}
+
+/* Contact */
+.contact{text-align:left}
+.mail{display:inline-block;font-size:clamp(1.3rem,4vw,2.2rem);font-weight:600;letter-spacing:-.03em;text-decoration:none;
+  border-bottom:1px solid var(--line);padding-bottom:.3rem;transition:border-color .25s}
+.mail:hover{border-color:#fff}
+.links{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
+.links a{color:var(--muted);text-decoration:none;transition:color .2s}
+.links a:hover{color:#fff}
+
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+
+@media (max-width:820px){
+  .hero{flex-direction:column-reverse;align-items:flex-start;gap:2rem;padding-top:2.5rem}
+  .portrait{width:180px;height:180px}
+  nav ul{gap:1.1rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .hero-text>*,.portrait{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Patryk Burger</a>
+    <ul>
+      <li><a href="#focus">Focus</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <span class="status"><i></i>Working towards AWS Certified Cloud Practitioner</span>
+      <h1>Building on AWS, automating the rest.</h1>
+      <p class="lead">I'm Patryk. I write Python and browser scripts to automate repetitive work, and I'm building my cloud skills hands-on with AWS.</p>
+      <div class="cta">
+        <a href="#contact" class="btn primary">Get in touch</a>
+        <a href="https://github.com/patrykburger" target="_blank" rel="noopener" class="btn">GitHub</a>
+        <a href="https://linkedin.com/in/patryk-burger-aa1664229" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+      </div>
+    </div>
+    <div class="portrait">
+      <span aria-hidden="true">PB</span>
+      <img src="profile.jpg" alt="Portrait of Patryk Burger" onerror="this.remove()">
+    </div>
+  </header>
+
+  <section id="focus">
+    <h2>What I work with</h2>
+    <p class="sub">The tools I use day to day while learning and building.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>AWS fundamentals</h3>
+        <p>Hosting, storage, networking and access control on the core AWS services.</p>
+        <ul class="tags"><li>S3</li><li>EC2</li><li>IAM</li><li>VPC</li><li>CloudFront</li></ul>
+      </div>
+      <div class="card">
+        <h3>Automation</h3>
+        <p>Scripts that replace manual steps, from AWS CLI and boto3 to Tampermonkey userscripts.</p>
+        <ul class="tags"><li>Python</li><li>boto3</li><li>AWS CLI</li><li>Tampermonkey</li></ul>
+      </div>
+      <div class="card">
+        <h3>Security basics</h3>
+        <p>MFA on every account, an IAM user instead of root for daily work, and a private bucket served over HTTPS.</p>
+        <ul class="tags"><li>IAM</li><li>MFA</li><li>Bucket policies</li><li>HTTPS</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <p class="sub">Small, real things I've built while learning.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>This portfolio</h3>
+        <p>A hand-written static site (HTML and CSS, no framework). The S3 bucket stays private and CloudFront serves it over HTTPS using Origin Access Control.</p>
+        <ul class="tags"><li>S3</li><li>CloudFront</li><li>OAC</li><li>HTTPS</li></ul>
+      </div>
+      <div class="card">
+        <h3>AWS account checker</h3>
+        <p>A Python script that connects to AWS with boto3 and reports account identity and EC2 usage.</p>
+        <ul class="tags"><li>Python</li><li>boto3</li><li>IAM</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p class="sub">Open to conversations about cloud, automation and junior roles. Email is the quickest way to reach me.</p>
+    <a class="mail" href="mailto:burger.patryk.personal@gmail.com">burger.patryk.personal@gmail.com</a>
+    <div class="links">
+      <a href="https://github.com/patrykburger" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/patryk-burger-aa1664229" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="y"></span> Patryk Burger</span>
+    <span>Hosted on AWS: S3 + CloudFront</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+// Drifting network background
+(function () {
+  const c = document.getElementById('bg'), ctx = c.getContext('2d');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w, h, dpr, nodes = [], mouse = { x: -999, y: -999 };
+  const LINK = 140, MOUSE_R = 180;
+
+  function resize() {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    w = innerWidth; h = innerHeight;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(90, Math.round(w * h / 16000));
+    nodes = Array.from({ length: n }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35
+    }));
+    if (still) draw();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of nodes) {
+      if (!still) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+      }
+      ctx.fillStyle = 'rgba(255,255,255,.55)';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 1.4, 0, 6.283); ctx.fill();
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < LINK) {
+          ctx.strokeStyle = 'rgba(255,255,255,' + (0.16 * (1 - d / LINK)) + ')';
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (dm < MOUSE_R) {
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.5 * (1 - dm / MOUSE_R)) + ')';
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      }
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+
+  addEventListener('resize', resize);
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
+  resize();
+  if (!still) draw();
+})();
+</script>
+</body>
+</html>
