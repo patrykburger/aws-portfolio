@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Patryk Burger | Cloud & Automation</title>
 <meta name="description" content="Patryk Burger: AWS, Python and automation. Portfolio and contact.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Patryk Burger | Cloud & Automation">
+<meta property="og:description" content="AWS, Python and automation. Portfolio and contact.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -152,8 +156,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem
       </div>
       <div class="card">
         <h3>Security basics</h3>
-        <p>Least-privilege IAM users, bucket policies and HTTPS by default.</p>
-        <ul class="tags"><li>IAM policies</li><li>Bucket policies</li><li>HTTPS</li></ul>
+        <p>MFA on every account, an IAM user instead of root for daily work, and a private bucket served over HTTPS.</p>
+        <ul class="tags"><li>IAM</li><li>MFA</li><li>Bucket policies</li><li>HTTPS</li></ul>
       </div>
     </div>
   </section>
@@ -164,8 +168,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem
     <div class="grid">
       <div class="card">
         <h3>This portfolio</h3>
-        <p>A static site hosted on Amazon S3, written by hand in HTML and CSS with no framework.</p>
-        <ul class="tags"><li>S3</li><li>Static hosting</li></ul>
+        <p>A hand-written static site (HTML and CSS, no framework). The S3 bucket stays private and CloudFront serves it over HTTPS using Origin Access Control.</p>
+        <ul class="tags"><li>S3</li><li>CloudFront</li><li>OAC</li><li>HTTPS</li></ul>
       </div>
       <div class="card">
         <h3>AWS account checker</h3>
@@ -189,7 +193,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem
 <footer>
   <div class="wrap">
     <span>&copy; <span id="y"></span> Patryk Burger</span>
-    <span>Hosted on Amazon S3</span>
+    <span>Hosted on AWS: S3 + CloudFront</span>
   </div>
 </footer>
 

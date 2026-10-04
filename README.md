@@ -1,50 +1,68 @@
-# AWS S3 & CloudFront Static Portfolio Website
+# Portfolio on AWS: S3 + CloudFront
 
-Welcome to my portfolio repository! This project showcases a modern, high-contrast personal portfolio website hosted natively in the Amazon Web Services (AWS) cloud ecosystem.
+A minimalist black-and-white personal portfolio, hand-written in HTML, CSS and vanilla JavaScript, and hosted on AWS as a secure static site.
 
-## 🌐 Live Demo
+**Live site:** https://dihygzx3tp3j0.cloudfront.net
 
-* **Live Site:** [https://dihygzx3tp3j0.cloudfront.net](https://dihygzx3tp3j0.cloudfront.net)
-
----
-
-## 🚀 Overview
-
-The portfolio features a sleek, minimalist UI/UX design with smooth GSAP animations, interactive cursor micro-interactions, and a seamless B&W profile image mask. It serves as both a personal tech showcase and a production-grade cloud architecture implementation.
-
-### Key Technologies:
-* **Frontend:** HTML5, CSS3, JavaScript (ES6+), GSAP (GreenSock Animation Platform)
-* **Cloud Infrastructure & Security:** Amazon Web Services (AWS)
-  * **Amazon CloudFront:** Content Delivery Network (CDN) providing global edge caching, SSL/TLS termination (`HTTPS`), and cost optimization (AWS Free Tier: 1 TB transfer & 10M requests).
-  * **Amazon S3:** Secure, private object storage acting as the CloudFront origin.
-  * **Origin Access Control (OAC):** Restricts direct S3 bucket access, ensuring traffic is only routed securely through CloudFront.
-  * **AWS CLI:** Automated local-to-cloud file deployment.
-* **Version Control:** Git & GitHub
+> Project 1 of my 10-project AWS learning path (preparing for AWS Certified Cloud Practitioner).
 
 ---
 
-## 🛠️ AWS Cloud Architecture & Security
+## Architecture
 
-[ User Request ] ---> ( HTTPS ) ---> [ Amazon CloudFront (Edge) ]
-|
-( Origin Access Control )
-|
-v
-[ Private Amazon S3 Bucket ]
+```mermaid
+flowchart LR
+    U[Visitor] -->|HTTPS| CF[Amazon CloudFront]
+    CF -->|Origin Access Control| S3[(Private S3 bucket)]
+    Dev[Local machine] -->|aws s3 sync| S3
+    Dev -->|create-invalidation| CF
+```
 
-1. **Private S3 Bucket:** Direct public access (`Block Public Access`) is fully enabled on the S3 bucket to prevent unauthorized access and untracked API request costs.
-2. **CloudFront Distribution with OAC:** Configured with Origin Access Control (OAC) to securely serve static assets (`index.html`, `profile.jpg`) via AWS global Edge Locations with HTTPS encryption.
-3. **Cost & Performance Optimization:** By caching static assets at CloudFront edge locations, direct `GET` operations to S3 are virtually eliminated, keeping infrastructure costs at $0.00 within the AWS Free Tier limits.
+- **Amazon S3** stores the site files. The bucket is **private** (Block Public Access on), so it can't be read directly from the internet.
+- **Amazon CloudFront** is the only way in. It reads from S3 through **Origin Access Control (OAC)**, serves the site over **HTTPS**, and caches content at edge locations for fast loading.
+- **IAM:** daily work is done with an IAM user protected by MFA, never the root account.
 
----
+## Features
 
-## 💻 Local Development & Deployment Workflow
+- Responsive, high-contrast B&W design with a Geist font
+- Animated network-style background drawn on `<canvas>`, reacting to the cursor
+- Respects `prefers-reduced-motion` for accessibility
+- No frameworks and no build step
 
-Deployment and file synchronization from the local environment (`/portfolio`) to S3 using the AWS CLI:
+## Tech stack
+
+| Area | Tools |
+|------|-------|
+| Frontend | HTML5, CSS3, JavaScript (ES6+) |
+| Hosting | Amazon S3, Amazon CloudFront (OAC, HTTPS) |
+| Access control | IAM user with MFA, S3 bucket policy |
+| Deployment | AWS CLI, Git and GitHub |
+
+## Deployment
+
+Sync the local folder to the bucket, then clear the CloudFront cache so changes appear immediately:
 
 ```bash
-# Sync local assets to private S3 bucket
 aws s3 sync . s3://aws-portfolio-patryk/ --delete
+aws cloudfront create-invalidation --distribution-id <DISTRIBUTION_ID> --paths "/*"
+```
 
-Note on Caching: If HTML or asset files are updated in S3, run a CloudFront invalidation to instantly refresh cached content globally:
-aws cloudfront create-invalidation --distribution-id E3NHUDKPMSUKL9 --paths "/*"
+Run the sync from the site folder only. `--delete` removes bucket files that don't exist locally.
+
+## Cost
+
+Designed to stay within the AWS free tier: a small static site on S3 plus CloudFront at low traffic costs next to nothing. AWS Budgets alerts are enabled as a safety net.
+
+## What I learned (exam topics)
+
+- Shared responsibility model: AWS secures the cloud, I secure what I put in it
+- IAM best practices: no root for daily use, MFA, separate admin user
+- S3 storage, bucket policies and why private buckets are safer
+- CloudFront: edge locations, caching, invalidations, OAC and HTTPS
+- Deploying with the AWS CLI
+
+## Next steps
+
+- Replace admin permissions with a least-privilege IAM policy (Project 2)
+- Add a custom domain with Route 53 and ACM
+- Automate deployment with GitHub Actions and Infrastructure as Code
