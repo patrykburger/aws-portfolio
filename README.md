@@ -2,7 +2,7 @@
 
 A minimalist black-and-white personal portfolio, hand-written in HTML, CSS and vanilla JavaScript, and hosted on AWS as a secure static site.
 
-**Live site:** https://dihygzx3tp3j0.cloudfront.net
+**Live site:** https://patryk.is-a.dev
 
 > Project 1 of my 10-project AWS learning path (preparing for AWS Certified Cloud Practitioner).
 
